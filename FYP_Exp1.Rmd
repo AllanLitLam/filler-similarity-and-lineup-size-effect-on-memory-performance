@@ -26,7 +26,7 @@ setwd("~/Desktop/Allan/A.Projects/FYP2025/FYP")
 FYP <- read_csv("Exp1.csv")
 
 # Group and count rows based on experimental conditions
-FYP2025 <- FYP %>%
+Exp1 <- FYP %>%
   group_by(ID, Size, Similarity, Conf) %>%
   tally()
 ```
@@ -35,7 +35,7 @@ FYP2025 <- FYP %>%
 # Function: compute_roc_data
 # Purpose:  Calculate cumulative adjusted hit (AdjHit) and false alarm (AdjFA) rates
 #           for a given similarity condition ("Lowest", "Highest", etc.)
-# Input:    data — grouped count data (FYP2025)
+# Input:    data — grouped count data (Exp1)
 #           similarity_label — string value for Similarity filter (e.g., "Lowest")
 # Output:   Data frame with cumulative AdjHit and AdjFA by Size and Confidence
 compute_roc_data <- function(data, similarity_label) {
@@ -96,8 +96,8 @@ compute_roc_data <- function(data, similarity_label) {
 }
 
 # Apply function to both conditions
-roc_low <- compute_roc_data(FYP2025, "Lowest")
-roc_high <- compute_roc_data(FYP2025, "Highest")
+roc_low <- compute_roc_data(Exp1, "Lowest")
+roc_high <- compute_roc_data(Exp1, "Highest")
 
 # Combine both for faceted plot
 roc_combined <- bind_rows(roc_low, roc_high)
