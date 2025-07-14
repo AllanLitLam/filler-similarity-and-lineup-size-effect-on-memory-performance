@@ -1,0 +1,154 @@
+---
+title: "Allan Lam"
+subtitle: "Exp2"
+date: "`r Sys.time()`"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+biblio-style: apalike
+urlcolor: blue
+editor_options: 
+  markdown: 
+    wrap: sentence
+---
+
+```{r}
+# Load Required Libraries
+library(tidyverse)    # Includes dplyr, ggplot2, tidyr, readr, etc.
+library(ggpubr)       # For publication-ready plots
+library(tokenizers)   # For text tokenization, if needed
+library(ggsignif)     # For significance bars in ggplot
+
+setwd("~/Desktop/Allan/A.Projects/FYP2025/FYP")
+
+# Load and Aggregate Data
+FYP <- read_csv("Exp1.csv")
+
+# Group and count rows based on experimental conditions
+FYP2025 <- FYP %>%
+  group_by(ID, Size, Similarity, Conf) %>%
+  tally()
+```
+
+```{r}
+# Function: compute_roc_data
+# Purpose:  Calculate cumulative adjusted hit (AdjHit) and false alarm (AdjFA) rates
+#           for a given similarity condition ("Lowest", "Highest", etc.)
+# Input:    data — grouped count data (FYP2025)
+#           similarity_label — string value for Similarity filter (e.g., "Lowest")
+# Output:   Data frame with cumulative AdjHit and AdjFA by Size and Confidence
+compute_roc_data <- function(data, similarity_label) {
+  
+  # 1. Filter rows by similarity condition
+  sim_data <- data %>% filter(Similarity == similarity_label)
+
+  # 2. Subset data by ID type
+  Hit        <- sim_data %>% filter(ID == "TP_SuspectID")      # True Positives (Hits)
+  Miss       <- sim_data %>% filter(ID == "IncorrectReject")   # Misses
+  Filler_TP  <- sim_data %>% filter(ID == "TP_FillerID")       # TP lineup fillers
+  FA         <- sim_data %>% filter(ID == "TA_SuspectID")      # False Alarms (FAs)
+  Re         <- sim_data %>% filter(ID == "CorrectReject")     # Correct Rejections
+  Filler_TA  <- sim_data %>% filter(ID == "TA_FillerID")       # TA lineup fillers
+
+  # 3. Merge hit, miss, and filler counts for TP trials
+  Hit_Miss <- Hit %>%
+    full_join(Miss, by = c("Size", "Similarity", "Conf")) %>%
+    full_join(Filler_TP, by = c("Size", "Similarity", "Conf")) %>%
+    mutate(across(where(is.numeric), ~replace_na(., 0)))  # Replace NA with 0s
+
+  # 4. Calculate cumulative hit rates
+  Hit_Calc <- Hit_Miss %>%
+    group_by(Size) %>%
+    arrange(Size, desc(Conf)) %>%  # Sort by descending confidence
+    mutate(
+      cum_hits = cumsum(n.x),  # Cumulative TP hits
+      total = sum(n.x + n.y + n),  # Total responses (Hits + Misses + Fillers)
+      AdjHit = cum_hits / total  # Adjusted hit rate
+    ) %>%
+    ungroup() %>%
+    select(Size, Similarity, Conf, AdjHit)
+
+  # 5. Merge FA, rejection, and filler counts for TA trials
+  FA_Re <- FA %>%
+    full_join(Re, by = c("Size", "Similarity", "Conf")) %>%
+    full_join(Filler_TA, by = c("Size", "Similarity", "Conf")) %>%
+    mutate(across(where(is.numeric), ~replace_na(., 0)))  # Replace NA with 0s
+
+  # 6. Calculate cumulative false alarm rates
+  FA_Calc <- FA_Re %>%
+    group_by(Size) %>%
+    arrange(Size, desc(Conf)) %>%
+    mutate(
+      cum_fa = cumsum(n.x),  # Cumulative FAs
+      total = sum(n.x + n.y + n),  # Total responses (FAs + Correct Rejects + Fillers)
+      AdjFA = cum_fa / total  # Adjusted FA rate
+    ) %>%
+    ungroup() %>%
+    select(Size, Similarity, Conf, AdjFA)
+
+  # 7. Merge cumulative hit and false alarm rates
+  final_data <- Hit_Calc %>%
+    full_join(FA_Calc, by = c("Size", "Similarity", "Conf")) %>%
+    mutate(across(where(is.numeric), ~replace_na(., 0))) # Replace NA with 0s
+
+  return(final_data)
+}
+
+# Apply function to both conditions
+roc_low <- compute_roc_data(FYP2025, "Lowest")
+roc_high <- compute_roc_data(FYP2025, "Highest")
+
+# Combine both for faceted plot
+roc_combined <- bind_rows(roc_low, roc_high)
+
+# Plot the ROC curve for Low-Similarity condition
+ggplot(roc_low, aes(x = AdjFA, y = AdjHit, group = factor(Size))) +
+  geom_line(size = 1.25, color = "black") +
+  geom_point(
+    aes(shape = factor(Size)),
+    size = 3, stroke = 1.2, fill = "white"
+  ) +
+  labs(
+    title = "Low-Similarity",
+    x = "False Alarm Rates",
+    y = "Hit Rates",
+    shape = "Lineup Size"
+  ) +
+  theme_minimal() +
+  coord_cartesian(xlim = c(0, 0.4), ylim = c(0, 1))
+
+# Plot the ROC curve for High-Similarity condition
+ggplot(roc_high, aes(x = AdjFA, y = AdjHit, group = factor(Size))) +
+  geom_line(size = 1.25, color = "black") +
+  geom_point(
+    aes(shape = factor(Size)),
+    size = 3, stroke = 1.2, fill = "white"
+  ) +
+  labs(
+    title = "High-Similarity",
+    x = "False Alarm Rates",
+    y = "Hit Rates",
+    shape = "Lineup Size"
+  ) +
+  theme_minimal() +
+  coord_cartesian(xlim = c(0, 0.4), ylim = c(0, 1))
+
+# Plot with facet for Similarity
+ggplot(roc_combined, aes(x = AdjFA, y = AdjHit, group = factor(Size))) +
+  geom_line(size = 1.25, color = "black") +
+  geom_point(
+    aes(shape = factor(Size)),
+    size = 3, stroke = 1.2, fill = "white"
+  ) +
+  facet_wrap(~Similarity) +
+  labs(
+    title = "ROC Curves by Similarity Condition",
+    x = "False Alarm Rates",
+    y = "Hit Rates",
+    shape = "Lineup Size"
+  ) +
+  theme_minimal() +
+  coord_cartesian(xlim = c(0, 0.4), ylim = c(0, 1))
+```
+
