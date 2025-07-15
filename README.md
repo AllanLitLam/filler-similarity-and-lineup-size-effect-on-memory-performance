@@ -28,9 +28,9 @@ We explored:
 - Confidence-based cumulative performance modeling
 
 Scripts:
-- `Exp1_ROC.R`
-- `Exp2_ROC.R`
-- `Exp3_ROC.R`
+- `Exp1_ROC.Rmd`
+- `Exp2_ROC.Rmd`
+- `Exp3_ROC.Rmd`
 
 ---
 
