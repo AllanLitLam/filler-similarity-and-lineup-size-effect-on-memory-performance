@@ -50,7 +50,7 @@ These results support a reinterpretation of the **Ensemble Model** in memory: at
 
 ---
 
-## 🎯 UX Implication
+## 🚀 UX Implication
 
 This project investigates how people process complex visual information under uncertainty, mirroring real-world constraints like poor visibility or over-crowded UI elements.
 
