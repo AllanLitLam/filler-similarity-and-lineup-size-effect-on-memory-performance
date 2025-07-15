@@ -48,7 +48,7 @@ This project translates well to UX domains involving:
 
 ## 📈 Impact Statement
 
-> This research contributes a novel theoretical insight into how **set size** and **stimulus similarity** jointly affect human discriminability in visual decision-making. In applied settings like police lineups or facial recognition UIs, these findings challenge longstanding assumptions that "more context is better", especially when visual elements are too similar to be diagnostic. This has broader implications for fairness, usability, and trust in high-stakes human-computer interaction.
+This research contributes a novel theoretical insight into how **set size** and **stimulus similarity** jointly affect human discriminability in visual decision-making. In applied settings like police lineups or facial recognition UIs, these findings challenge longstanding assumptions that "more context is better", especially when visual elements are too similar to be diagnostic. This has broader implications for fairness, usability, and trust in high-stakes human-computer interaction.
 
 ---
 
@@ -64,7 +64,7 @@ These results support a reinterpretation of the **Ensemble Model** in memory: at
 
 ## 🧩 Theoretical Implication
 
-> Increasing lineup size **isn't always helpful**. When all faces are highly similar, more faces  reinforce non-diagnostic patterns, reducing the ability to focus on what truly matters.
+Increasing lineup size **isn't always helpful**. When all faces are highly similar, more faces  reinforce non-diagnostic patterns, reducing the ability to focus on what truly matters.
 
 ---
 
