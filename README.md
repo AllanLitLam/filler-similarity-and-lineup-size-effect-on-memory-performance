@@ -69,3 +69,15 @@ Increasing lineup size **isn't always helpful**. When all faces are highly simil
 ---
 
 ## 📁 Repository Structure
+project/
+├── analysis/
+│   ├── Exp1_ROC.R
+│   ├── Exp2_ROC.R
+│   ├── Exp3_ROC.R
+├── results/
+│   └── ROC_plots/
+│       ├── Exp1_ROC.png
+│       ├── Exp2_ROC.png
+│       └── Exp3_ROC.png
+├── README.md
+└── Publication.pdf
