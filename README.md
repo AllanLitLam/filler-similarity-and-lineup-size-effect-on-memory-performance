@@ -1,6 +1,7 @@
 # The effect of lineup size on discriminability is dependent on filler similarity and independent of encoding strength
 
 **How does the number and similarity of faces in a lineup impact an eyewitness's ability to discriminate the perpetrator from similar-looking fillers?**  
+
 This project addresses this question through three behavioral experiments, using ROC analysis to evaluate identification performance.
 
 ---
