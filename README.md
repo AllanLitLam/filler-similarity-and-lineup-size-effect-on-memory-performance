@@ -27,7 +27,7 @@ We explored:
 - Calculation of **Adjusted Hit Rates** and **False Alarm Rates**
 - Confidence-based cumulative performance modeling
 
-Scripts:
+Analysis Scripts:
 - `Exp1_ROC.Rmd`
 - `Exp2_ROC.Rmd`
 - `Exp3_ROC.Rmd`
