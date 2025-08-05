@@ -29,9 +29,9 @@ I explored:
 - Confidence-based cumulative performance modeling
 
 Analysis Scripts:
-- `Exp1_ROC.Rmd`
-- `Exp2_ROC.Rmd`
-- `Exp3_ROC.Rmd`
+- [Exp1_ROC.Rmd](./Analysis/Exp1_ROC.Rmd)
+- [Exp2_ROC.Rmd](./Analysis/Exp2_ROC.Rmd)
+- [Exp3_ROC.Rmd](./Analysis/Exp3_ROC.Rmd)
 
 ---
 
