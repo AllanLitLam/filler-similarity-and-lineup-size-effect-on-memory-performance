@@ -10,7 +10,7 @@ This project addresses this question through three behavioral experiments, using
 
 Eyewitness identification often involves presenting a photo lineup, typically composed of one suspect and several visually similar fillers. While best practices encourage the use of fillers who resemble the suspect to reduce bias, this research shows that such similarity may reduce the eyewitness's ability to correctly identify the perpetrator, especially as the lineup grows in size.
 
-We explored:
+I explored:
 - How **filler similarity** (high vs. low) influences discriminability.
 - How **lineup size** interacts with similarity to affect performance.
 - Whether **encoding strength** (blurry vs. repeated faces) modulates these effects.
