@@ -33,6 +33,9 @@ Analysis Scripts:
 - [Exp2_ROC.Rmd](./Analysis/Exp2_ROC.Rmd)
 - [Exp3_ROC.Rmd](./Analysis/Exp3_ROC.Rmd)
 
+Publication:
+- [Publication.pdf](./Publication.pdf)
+
 ---
 
 ## Impact Statement
