@@ -1,74 +1,59 @@
-# The effect of lineup size on discriminability is dependent on filler similarity and independent of encoding strength
+#  Eyewitness Memory & Lineup Optimization: The Role of Filler Similarity and Size 🧠
+---
 
-**How does the number and similarity of faces in a lineup impact an eyewitness's ability to discriminate the perpetrator from similar-looking fillers?**  
+##  The Challenge: Optimizing Eyewitness Discriminability
 
-This project addresses this question through three behavioral experiments, using ROC analysis to evaluate identification performance.
+The core challenge in eyewitness research is optimizing police photo lineups (showups, 2-person, 6-person) to maximize witness **discriminability** (the ability to correctly identify a guilty suspect while avoiding false alarms). Although studies showed that optimal lineup size varies with filler similarity, the influence of the **witness's memory strength (encoding)** on this interaction was unknown.
+
+This research aimed to determine whether the optimal lineup size is dependent on the strength of the witness's initial memory encoding (tested via repetition/unrepetition) when fillers are of either high or low similarity.
 
 ---
 
-## Project Overview
+## Key Data-Driven Insights
 
-Eyewitness identification often involves presenting a photo lineup, typically composed of one suspect and several visually similar fillers. While best practices encourage the use of fillers who resemble the suspect to reduce bias, this research shows that such similarity may reduce the eyewitness's ability to correctly identify the perpetrator, especially as the lineup grows in size.
+The analysis used **Signal Detection Theory** to calculate discriminability ($d'_{IG}$) and fitted the data to the **Independent Observations (IO) Model** to test theoretical predictions, revealing a critical interaction:
 
-I explored:
-- How **filler similarity** (high vs. low) influences discriminability.
-- How **lineup size** interacts with similarity to affect performance.
-- Whether **encoding strength** (blurry vs. repeated faces) modulates these effects.
+1. The Crucial Interaction: Similarity $\times$ Size
+- **High Similarity Fillers**: Discriminability ($d'_{IG}$) decreased significantly as the lineup size increased (from 1 to 6 persons).
+- **Low Similarity Fillers**: Discriminability increased significantly as the lineup size increased (from 1 to 6 persons).
 
----
+<p align="center">
+  <img src="./Plots/Exp1-ROC.png" alt="Discriminability by Lineup Size and Similarity" width="600"/>
+  <br>
+  <em>Figure: Discriminability by Lineup Size and Similarity </em>
+</p>
 
-## Experiments & R Code
+2. Independence from Encoding Strength
+- **Finding**: The effect of lineup size on discriminability was completely independent of the encoding manipulation (repeated vs. unrepeated target viewing). The same interaction pattern (finding 1) was observed regardless of the initial strength of the witness's memory.
+- **Implication**: Interventions aimed at improving initial memory encoding (e.g., better lighting) will not change the fundamental decision of which lineup size to use.
 
-- **Experiment 1**: Replication of prior findings showing opposite effects of lineup size for low- vs. high-similarity fillers.
-- **Experiment 2**: Decreased encoding strength (blurry images) with low-similarity fillers.
-- **Experiment 3**: Increased encoding strength (repeated images) with high-similarity fillers.
-
-### Analysis Method
-- ROC (Receiver Operating Characteristic) analysis
-- Calculation of **Adjusted Hit Rates** and **False Alarm Rates**
-- Confidence-based cumulative performance modeling
-
-Analysis Scripts:
-- [Exp1_ROC.Rmd](./Analysis/Exp1_ROC.Rmd)
-- [Exp2_ROC.Rmd](./Analysis/Exp2_ROC.Rmd)
-- [Exp3_ROC.Rmd](./Analysis/Exp3_ROC.Rmd)
-
-Publication:
-- [Publication.pdf](./Publication.pdf)
+<p align="center">
+  <img src="./Plots/Exp2-ROC.png" alt="Discriminability by Lineup Size and Encoding Manipulations" width="600"/>
+</p>
+<p align="center">
+  <img src="./Plots/Exp3-ROC.png" alt="Discriminability by Lineup Size and Encoding Manipulations" width="600"/>
+  <br>
+  <em>Figure: Discriminability by Lineup Size and Encoding Manipulations </em>
+</p>
 
 ---
 
-## Impact Statement
-
-This research contributes a novel theoretical insight into how **set size** and **stimulus similarity** jointly affect human discriminability in visual decision-making. In applied settings like police lineups or facial recognition UIs, these findings challenge longstanding assumptions that "more context is better", especially when visual elements are too similar to be diagnostic. This has broader implications for fairness, usability, and trust in high-stakes human-computer interaction.
-
----
-
-## Key Findings
-
-- **Low-similarity fillers**: Larger lineups improved discriminability even under degraded encoding.
-- **High-similarity fillers**: Larger lineups decreased discriminability even under enhanced encoding.
-- The effect of **lineup size** is contingent not on overall task difficulty, but on **retrieval similarity** between items.
-
-These results support a reinterpretation of the **Ensemble Model** in memory: attention may be biased toward shared (non-diagnostic) features in highly similar groups, interfering with identification of meaningful distinctions.
+## Actionable Recommendation
+**Strategy**: Standardize the use of multi-person lineups with fillers that strictly match the witness's verbal description to maximize discriminability.
+- **Administer Multi-Person Lineups (instead of Showups)**: Formalize the use of lineups with multiple fillers (more than 1 person) as the standard police procedure, if possible. 
+- **Prioritize Descriptive Matching**: Emphasize that filler selection must be based on matching the witness’s verbal description of the perpetrator, not merely matching the suspect’s appearance. This creates a functionally low-similarity lineup environment among the non-suspects, a condition which is empirically shown to increase discriminability.
+- **Optimal Size for Descriptively Matched Fillers**: When utilizing these descriptively matched, low-similarity fillers, police should default to the larger lineup sizes (e.g., 6-person), as our findings confirm this significantly increases eyewitness discriminability.
 
 ---
 
-## UX Implication
+## Conclusion & Next Steps
 
-This project investigates how people process complex visual information under uncertainty, mirroring real-world constraints like poor visibility or over-crowded UI elements.
+This study establishes that the optimal lineup size depends critically on **filler similarity** and is robust to manipulations of encoding strength, providing key guidance for law enforcement policy.
 
-This project translates well to UX domains involving:
-- **Visual search** in cluttered environments
-- **Decision-making** under perceptual load
-- **Cognitive modeling** of attention and recognition
-- Designing systems where **false positives** and **misses** matter (e.g., facial recognition, surveillance, AI-driven selection interfaces)
+- **Next Steps**:  Future research should test other encoding manipulations, such as the duration of target viewing, to confirm the generalizability of the encoding independence finding.
 
 ---
 
-## Theoretical Implication
+[ **Full Analysis Report**: [Publication.pdf](./Publication.pdf) | **Analysis Scripts**: [Exp1_ROC.Rmd](./Analysis/Exp1_ROC.Rmd) | [Exp2_ROC.Rmd](./Analysis/Exp2_ROC.Rmd) | [Exp3_ROC.Rmd](./Analysis/Exp3_ROC.Rmd)
 
-Increasing lineup size **isn't always helpful**. When all faces are highly similar, more faces  reinforce non-diagnostic patterns, reducing the ability to focus on what truly matters.
-
----
 
