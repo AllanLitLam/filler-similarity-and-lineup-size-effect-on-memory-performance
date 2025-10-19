@@ -13,7 +13,7 @@ This research aimed to determine whether the optimal lineup size is dependent on
 
 The analysis used **Signal Detection Theory** to calculate discriminability ($d'_{IG}$) and fitted the data to the **Independent Observations (IO) Model** to test theoretical predictions, revealing a critical interaction:
 
-1. The Crucial Interaction: Similarity $\times$ Size
+1. The Crucial Interaction: **Filler Similarity $\times$ Lineup Size**
 - **High Similarity Fillers**: Discriminability ($d'_{IG}$) decreased significantly as the lineup size increased (from 1 to 6 persons).
 - **Low Similarity Fillers**: Discriminability increased significantly as the lineup size increased (from 1 to 6 persons).
 
